@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Forca</title>
+    <link rel="stylesheet" href="fases.css">
+</head>
+
+<body>
+    <canvas id="matrix"></canvas>
+      <!-- TOPO -->
+      <h1>Gallows <br> <span>Security</span></h1>
+      <img id="imagem" src="img/1.png" />
+      <div id="exibicaoPalavra">_ _ _</div>
+      <input type="text" id="letra" placeholder="Digite uma letra" maxlength="1">
+      <button id="btn-chutar" onclick="chutarLetra()">Tentar</button>
+      
+      <div class="container">
+        <h2>Dica:<img src="https://images.vexels.com/media/users/3/306179/isolated/preview/780089af55d580de3617300ded9f0ab2-icone-de-lampada-classica.png"/></h2>
+      <div class="espaco">  <p id="dica"></p></div>
+        <div id="mensagem"></div>
+    </div>
+
+    <h2>Tentativas passadas</h2>
+    <div id="letras-chutadas"></div>
+   
+    <div class="centralizar">
+    <button id="botao-reiniciar" onclick="iniciarJogo()" style="display:none;">Tentar novamente</button>
+</div>
+    <script>
+        function voltar(){
+            window.location.href ="jogo.html"
+        }
+        const palavrasFaceis = ["HTTPS", "Phishing", "DDoS", "Trojan", "Spam"];
+        const dicasFaceis = [
+            "Protocolo seguro para sites na web.",
+            "Golpe onde criminosos se passam por empresas para roubar dados.",
+            "Ataque que sobrecarrega um site com acessos.",
+            "Malware que se disfarça de programa legítimo.",
+            "E-mails indesejados enviados em massa."
+        ];
+
+        let palavraEscolhida;
+        let dicaEscolhida;
+        let exibicaoPalavra;
+        let letrasChutadas;
+        let tentativasRestantes;
+        let numeroDeErros;
+        let faseAtual = 0; 
+        let tentativasNaFase = 0; 
+
+        function iniciarJogo() {
+            if (palavrasFaceis.length === 0) {
+                alert("Você completou todas as fases! 🎉");
+                return;
+            }
+
+            if (tentativasNaFase >= 3) {
+                
+                if (faseAtual < palavrasFaceis.length - 1) {
+                    faseAtual++;
+                    tentativasNaFase = 0; 
+                    alert("Parabéns! Você avançou para a próxima fase!");
+                } else {
+                    alert("Você completou todas as fases! 🎉");
+                    return;
+                }
+            }
+
+            let index = Math.floor(Math.random() * palavrasFaceis.length); 
+            palavraEscolhida = palavrasFaceis.splice(index, 1)[0].toUpperCase(); 
+            dicaEscolhida = dicasFaceis.splice(index, 1)[0];
+            exibicaoPalavra = palavraEscolhida.split('').map(letra => (letra.match(/[A-ZÀ-ÚÇ-]/) ? "_" : letra));
+
+            letrasChutadas = [];
+            tentativasRestantes = 7;
+            numeroDeErros = 1;
+
+            document.getElementById("letra").disabled = false;
+            document.getElementById("mensagem").innerText = "";
+            document.getElementById("botao-reiniciar").style.display = "none";
+
+            atualizarExibicao();
+        }
+
+        document.getElementById("letra").addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                chutarLetra();
+            }
+        });
+
+        function atualizarExibicao() {
+            document.getElementById("exibicaoPalavra").innerText = exibicaoPalavra.join(' ');
+            document.getElementById("letras-chutadas").innerText = letrasChutadas.join(', ');
+            document.getElementById("dica").innerText = dicaEscolhida;
+            document.getElementById("imagem").src = `img/${numeroDeErros}.png`;
+
+            if (tentativasRestantes === 0) {
+                encerrarJogo("Você perdeu! 😢", "botao-reiniciar");
+            } else if (!exibicaoPalavra.includes('_')) {
+                tentativasNaFase++;
+                if (tentativasNaFase < 3) {
+                    alert("Você passou de fase! Tente novamente para melhorar.");
+                    iniciarJogo(); 
+                } else {
+                    alert("Parabéns! Você passou para a próxima fase!");
+                    voltar();
+                }
+            }
+        }
+
+        function chutarLetra() {
+            const entradaLetra = document.getElementById('letra');
+            const letra = entradaLetra.value.toUpperCase().trim();
+
+            if (!letra.match(/^[A-ZÀ-ÚÇ-]$/)) {
+                alert("Digite uma letra válida.");
+                return;
+            }
+
+            if (letrasChutadas.includes(letra)) {
+                alert("Você já tentou esta letra, digite outra.");
+                return;
+            }
+
+            letrasChutadas.push(letra);
+
+            if (palavraEscolhida.includes(letra)) {
+                for (let i = 0; i < palavraEscolhida.length; i++) {
+                    if (palavraEscolhida[i] === letra) {
+                        exibicaoPalavra[i] = letra;
+                    }
+                }
+            } else {
+                tentativasRestantes--;
+                numeroDeErros++;
+            }
+
+            entradaLetra.value = "";
+            atualizarExibicao();
+        }
+
+        function encerrarJogo(mensagem, botaoMostrar) {
+            document.getElementById("letra").disabled = true;
+            document.getElementById("mensagem").innerText = mensagem;
+            document.getElementById(botaoMostrar).style.display = "block";
+        }
+
+        window.onload = iniciarJogo;
+        const canvas = document.getElementById("matrix");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrixRain() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#0f0"; // Cor verde neon
+            ctx.font = fontSize + "px monospace";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = Math.random() > 0.5 ? "1" : "0";
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+
+                ctx.fillText(text, x, y);
+
+                if (y > canvas.height && Math.random() > 0.95) {
+                    drops[i] = 0;
+                }
+
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrixRain, 50);
+
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            drops.fill(1);
+        });
+
+
+    </script>
+</body>
+
+</html>
+x   

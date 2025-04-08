@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
+body{
+    
+    text-align: center;
+    margin: 0;
+    overflow-y: scroll;  /* Permite rolar a página verticalmente */
+    background-color: black;
+    
+    
+    
+}
+img{
+    width: 150px;
+    align-items: center;
+}
+
+#exibicaoPalavra{
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 30px;
+    font-family: "Press Start 2P";
+    margin-top: 7%;
+}
+
+#botao-reiniciar {
+display: none;
+ background-color: rgb(255, 0, 0); 
+ border: none;
+ color: white;
+ padding: 10px 20px;
+ border-radius: 5px;
+ font-family: "Press Start 2P";
+    text-align: center;
+}
+
+#botao-reiniciar :hover{
+background-color: rgb(100, 25, 25);
+}
+#botao-reiniciar button{
+    text-align: center;
+    width: 70PX;
+}
+
+
+#letras-chutadas{
+    font-size: 2rem;
+    color: blue;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-family: 'press start 2p', cursive;
+
+}
+
+
+.container{
+    img{
+        width: 30px;
+    }
+
+}
+
+h1{
+    font-family: "press start 2p";
+    margin-top: 70px;
+    text-align: center;
+    color:#21ef05; 
+    font-size: 70.95px;
+    text-shadow: 
+    -2px -2px 0 #000,  
+     2px -2px 0 #000,  
+    -2px  2px 0 #000,  
+     2px  2px 0 #000;
+}
+span{
+    color: black;
+    font-size: 75.95px;
+    text-shadow: 
+    -1px -1px 0 #21ef05,  
+     1px -1px 0 #21ef05,  
+    -1px  1px 0 #21ef05,  
+     1px  1px 0 #21ef05;
+}
+p{
+    margin-top: 25px;
+    width: 900px;
+    text-align: center;
+    font-size: 20px;
+    font-family: 'Press Start 2P';
+    display: block;
+    margin: 0 auto;
+    color: white;
+    margin-bottom: 25px;
+}
+
+h2{
+
+    width: 900px;
+    text-align: center;
+    font-size: 25px;
+    font-family: 'Press Start 2P';
+    display: block;
+    margin: 0 auto;
+    color: #21ef05;
+}
+
+.espaco{
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+.container{
+    margin-top: 4%;
+}
+#letras-chutadas{
+    color: red;
+    margin-top: 5%c;
+}
+#letra{
+    background-color: #000;
+    border: none;
+    color: #21ef05;
+    border-radius: 5px;
+    height: 30px;
+    text-align: center;
+    font-size: 15px;
+}
+#btn-chutar{
+    margin-bottom: 20px;
+    font-family: 'press start 2p';
+    background-color: #000;
+    border: none;
+    color: #21ef05;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    font-size: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#btn-chutar :hover{
+    background-color: #21ef05;
+    color: #000;
+}
+
+
+
+canvas {
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Joga o efeito para o fundo */
+}
+.centralizar{
+    text-align: center;
+}

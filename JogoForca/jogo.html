@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Forca</title>
+    <link rel="stylesheet" href="primeiratela.css">
+</head>
+
+<body>
+    <canvas id="matrix"></canvas>
+    <div class="conteiner">
+        <div id="tela-inicial">
+            <h2>Objetivo</h2>
+            <div id="texto">
+                <p>
+                    Seu objetivo é descobrir as palavras relacionadas à proteção online antes que o boneco seja
+                    enforcado. Cada
+                    erro te deixa mais perto do perigo!</p>
+            </div>
+            <div id="btn-proximo">
+                <button id="btn-proximo">Press Start</button>
+            </div>
+        </div>
+
+
+        <div id="tela-nivel" style="display: none;">
+            <h2>DIFICULDADE</h2>
+            <div id="texto">
+                <p>Selecione o nível de desafio e mostre que você sabe se proteger no mundo digital!</p>
+            </div>
+            <div id="nivel">
+                <div class="nivel-botao"><button onclick="facil()">Fácil</button></div>
+                <div class="nivel-botao"><button onclick="medio()">Médio</button></div>
+                <div class="nivel-botao"><button onclick="dificil()">Difícil</button></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("matrix");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrixRain() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#0f0"; 
+            ctx.font = fontSize + "px monospace";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = Math.random() > 0.5 ? "1" : "0";
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+
+                ctx.fillText(text, x, y);
+
+                if (y > canvas.height && Math.random() > 0.95) {
+                    drops[i] = 0;
+                }
+
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrixRain, 50);
+
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            drops.fill(1);
+        });
+
+        document.getElementById("btn-proximo").addEventListener("click", function () {
+            document.getElementById("tela-inicial").style.display = "none";
+            document.getElementById("tela-nivel").style.display = "block";
+        });
+
+
+        function facil() {
+            window.location.href = "faseFacil.html";
+        } x
+
+        function medio() {
+            window.location.href = "faseMedia.html";
+        }
+
+        function dificil() {
+            window.location.href = "faseDificil.html";
+        }
+    </script>
+</body>
+
+</html>

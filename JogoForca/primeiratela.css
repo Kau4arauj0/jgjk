@@ -1,0 +1,145 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: black;
+    overflow: hidden;
+}
+
+canvas {
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Joga o efeito para o fundo */
+}
+#matrix{
+    font-family:"Press Start 2P" ;
+}
+
+.conteiner{
+    h2{
+        font-family: 'Press Start 2P';
+        margin-top: 70px;
+        text-align: center;
+        color:#21ef05; 
+        font-size: 70.95px;
+        text-shadow: 
+        -2px -2px 0 #000,  
+         2px -2px 0 #000,  
+        -2px  2px 0 #000,  
+         2px  2px 0 #000;
+    }
+    p{
+        
+        width: 900px;
+        text-align: center;
+        font-size: 20px;
+        font-family: 'Press Start 2P';
+        display: block;
+        margin: 0 auto;
+        color: white;
+    }
+
+
+}
+
+#texto{
+    margin-top: 3% ;
+}
+#btn-proximo{
+    text-align: center;
+    margin-top: 6%;
+  
+}
+#btn-proximo button{
+
+    font-family: "Press Start 2P";
+    color: #21ef05;
+    border: none;
+    font-size: 30px;  
+    background-color: transparent;
+    cursor: pointer;
+}
+#btn-proximo button:hover{
+color: #3a91ee;
+}
+
+
+
+h1{
+    
+    margin-top: 70px;
+    text-align: center;
+    color:#21ef05; 
+    font-size: 70.95px;
+    text-shadow: 
+    -2px -2px 0 #000,  
+     2px -2px 0 #000,  
+    -2px  2px 0 #000,  
+     2px  2px 0 #000;
+}
+span{
+    color: black;
+    font-size: 75.95px;
+    text-shadow: 
+    -1px -1px 0 #21ef05,  
+     1px -1px 0 #21ef05,  
+    -1px  1px 0 #21ef05,  
+     1px  1px 0 #21ef05;
+}
+#jogar{
+    text-align: center;
+    margin-top: 10%;
+  
+}
+#jogar button{
+    letter-spacing: 8px;
+     font-family: "Press Start 2P";
+    color: #21ef05;
+    border: none;
+    font-size: 30px;  
+    background-color: transparent;
+    cursor: pointer;
+}
+#jogar button:hover{
+color: #3a91ee;
+}
+
+
+#nivel {
+    margin-top: 8%;
+    display: flex; /* Deixa os botões alinhados na horizontal */
+    justify-content: center; /* Centraliza os botões na tela */
+    gap: 15px; /* Espaço entre os botões */
+}
+
+.nivel-botao button {
+    width: 100px; /* Define um botão quadrado */
+    height: 100px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid white;
+}
+
+.nivel-botao button:hover {
+    background-color: white; /* Cor muda ao passar o mouse */
+    color: #21ef05;
+    border: 1px solid #21ef05;
+}
